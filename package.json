@@ -4,8 +4,14 @@
   "description": "Custom URL Shortener with MERN Stack",
   "main": "app.js",
   "scripts": {
+    "start": "npm app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "M Nu'man Arif H",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.7.2"
+  }
 }
