@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 
 // get data
 
-app.get("/", (req, res) => {
-  res.send("Shortify Database is running correctly");
-});
+// app.get("/", (req, res) => {
+//   res.send("Shortify Database is running correctly");
+// });
 
 // app.get("/all", (req, res) => {
 //   res.json({});
@@ -42,12 +42,18 @@ app.post("/", async (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// app.get('/', (req, res) => {
-//   res.status(200).json({
-//     success: true,
-//     data:
-//   })
-// })
+console.log(urlDatabase);
+
+// Get All URL
+
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    data: urlDatabase,
+  });
+});
+
+// Get Custom URL
 
 app.get("/:name", async (req, res) => {
   const { name } = req.params;
