@@ -17,17 +17,9 @@ app.get("/", (req, res) => {
   res.send("Shortify Database is running correctly");
 });
 
-app.get("/:customUrl", async (req, res) => {
-  const { customSlug } = req.params;
-  const result = await checkURL.find({ customSlug });
-
-  if (customSlug < 1)
-    return res.status(404).json({
-      status: 404,
-      error: true,
-      msg: "Custom Url doesn't exist",
-    });
-});
+// app.get("/all", (req, res) => {
+//   res.json({});
+// });
 
 app.post("/", async (req, res) => {
   const { url, customSlug } = req.body;
@@ -48,6 +40,25 @@ app.post("/", async (req, res) => {
     .save()
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
+});
+
+app.get("/:slug", async (req, res) => {
+  const { customSlug } = req.params;
+  const result = await checkURL.findOne({ customSlug: req.params.customSlug });
+
+  console.log(customSlug);
+
+  if (result.length < 1) {
+    return res.status(404).json({
+      status: 404,
+      error: true,
+      msg: "Custom Url doesn't exist",
+    });
+  }
+  res.status(200).json({
+    success: true,
+    data: result,
+  });
 });
 
 const port = 8000;
