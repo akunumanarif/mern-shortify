@@ -18,12 +18,11 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  console.log(req.body);
   const { url, customSlug } = req.body;
 
   const result = await checkURL.find({ customSlug });
 
-  if (result.length === 1) console.log("Custom name existed");
+  if (result.length === 1) return res.json({ msg: "Custom name existed" });
   const resultUrl = "http://" + req.get("host") + "/" + customSlug;
   console.log(resultUrl);
   res.send("Test is ok");
