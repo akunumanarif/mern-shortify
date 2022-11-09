@@ -24,13 +24,19 @@ app.post("/", async (req, res) => {
   const result = await checkURL.find({ customSlug });
 
   if (result.length === 1) console.log("Custom name existed");
-  const resultUrl = req.get("host") + "/" + customSlug;
-  return console.log(resultUrl);
-  // const newURL = new checkURL({
-  //   url,
-  //   customSlug,
-  //   resultUrl,
-  // });
+  const resultUrl = "http://" + req.get("host") + "/" + customSlug;
+  console.log(resultUrl);
+  res.send("Test is ok");
+  const newURL = new checkURL({
+    url,
+    customSlug,
+    resultUrl,
+  });
+
+  newURL
+    .save()
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
 });
 
 const port = 8000;
