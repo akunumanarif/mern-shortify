@@ -14,15 +14,23 @@ app.use(bodyParser.json());
 // get data
 
 app.get("/", (req, res) => {
-  res.send("Your data here");
+  res.send("Shortify Database is running correctly");
 });
 
 app.post("/", async (req, res) => {
-  console.log(`form data: ${req.body}`);
+  console.log(req.body);
   const { url, customSlug } = req.body;
 
-  const result = await checkURL.find({ customSlug: customSlug });
-  console.log(result);
+  const result = await checkURL.find({ customSlug });
+
+  if (result.length === 1) console.log("Custom name existed");
+  const resultUrl = req.get("host") + "/" + customSlug;
+  return console.log(resultUrl);
+  // const newURL = new checkURL({
+  //   url,
+  //   customSlug,
+  //   resultUrl,
+  // });
 });
 
 const port = 8000;
