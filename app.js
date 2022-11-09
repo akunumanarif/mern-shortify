@@ -11,16 +11,6 @@ connect();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// get data
-
-// app.get("/", (req, res) => {
-//   res.send("Shortify Database is running correctly");
-// });
-
-// app.get("/all", (req, res) => {
-//   res.json({});
-// });
-
 app.post("/", async (req, res) => {
   const { url, customSlug } = req.body;
 
@@ -42,15 +32,11 @@ app.post("/", async (req, res) => {
     .catch((err) => console.log(err));
 });
 
-console.log(urlDatabase);
-
 // Get All URL
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: urlDatabase,
-  });
+app.get("/", async (req, res) => {
+  const result = await urlDatabase.find();
+  res.json(result);
 });
 
 // Get Custom URL
@@ -58,8 +44,6 @@ app.get("/", (req, res) => {
 app.get("/:name", async (req, res) => {
   const { name } = req.params;
   const result = await urlDatabase.find({ customSlug: name });
-
-  // console.log(customSlug);
 
   if (result.length < 1) {
     return res.status(404).json({
