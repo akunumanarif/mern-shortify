@@ -18,7 +18,7 @@ const urlSchema = new Schema(
     },
   },
   {
-    timestamps,
+    timestamps: true,
   }
 );
 
