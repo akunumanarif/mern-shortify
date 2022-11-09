@@ -28,7 +28,7 @@ app.post("/", async (req, res) => {
 
   if (result.length === 1) return res.json({ msg: "Custom name existed" });
   const resultUrl = "http://" + req.get("host") + "/" + customSlug;
-  console.log(resultUrl);
+
   res.send("Test is ok");
   const newURL = new checkURL({
     url,
@@ -42,11 +42,11 @@ app.post("/", async (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.get("/:slug", async (req, res) => {
-  const { customSlug } = req.params;
-  const result = await checkURL.findOne({ customSlug: req.params.customSlug });
+app.get("/:name", async (req, res) => {
+  const { name } = req.params;
+  const result = await checkURL.find({ customSlug: name });
 
-  console.log(customSlug);
+  // console.log(customSlug);
 
   if (result.length < 1) {
     return res.status(404).json({
