@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const connect = require("./config/db_connect");
 const bodyParser = require("body-parser");
-const checkURL = require("./models/url");
+const urlDatabase = require("./models/url");
 
 // Connect to database
 connect();
@@ -24,13 +24,13 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   const { url, customSlug } = req.body;
 
-  const result = await checkURL.find({ customSlug });
+  const result = await urlDatabase.find({ customSlug });
 
   if (result.length === 1) return res.json({ msg: "Custom name existed" });
   const resultUrl = "http://" + req.get("host") + "/" + customSlug;
 
   res.send("Test is ok");
-  const newURL = new checkURL({
+  const newURL = new urlDatabase({
     url,
     customSlug,
     resultUrl,
@@ -42,9 +42,16 @@ app.post("/", async (req, res) => {
     .catch((err) => console.log(err));
 });
 
+// app.get('/', (req, res) => {
+//   res.status(200).json({
+//     success: true,
+//     data:
+//   })
+// })
+
 app.get("/:name", async (req, res) => {
   const { name } = req.params;
-  const result = await checkURL.find({ customSlug: name });
+  const result = await urlDatabase.find({ customSlug: name });
 
   // console.log(customSlug);
 
