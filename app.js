@@ -17,6 +17,18 @@ app.get("/", (req, res) => {
   res.send("Shortify Database is running correctly");
 });
 
+app.get("/:customUrl", async (req, res) => {
+  const { customSlug } = req.params;
+  const result = await checkURL.find({ customSlug });
+
+  if (customSlug < 1)
+    return res.status(404).json({
+      status: 404,
+      error: true,
+      msg: "Custom Url doesn't exist",
+    });
+});
+
 app.post("/", async (req, res) => {
   const { url, customSlug } = req.body;
 
