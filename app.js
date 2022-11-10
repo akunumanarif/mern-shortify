@@ -3,14 +3,13 @@ const app = express();
 const connect = require("./config/db_connect");
 const bodyParser = require("body-parser");
 const urlDatabase = require("./models/url");
-const expresEjsLayout = require("express-ejs-layouts");
 const expressEjsLayouts = require("express-ejs-layouts");
 
 // Connect to database
 connect();
 
 // View engine
-app.set("View-engine", "ejs");
+app.set("view engine", "ejs");
 app.use(expressEjsLayouts);
 
 // Parsing the data
@@ -20,7 +19,7 @@ app.use(bodyParser.json());
 // Create view index
 
 app.get("/", async (req, res) => {
-  res.send("index");
+  res.render("index");
 });
 
 // Create new Url
