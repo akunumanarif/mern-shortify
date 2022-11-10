@@ -11,7 +11,7 @@ connect();
 // View engine
 app.set("view engine", "ejs");
 app.use(expressEjsLayouts);
-app.set(express.static("public/"));
+app.use(express.static("public/"));
 
 // Parsing the data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 // Create view index
 
 app.get("/", async (req, res) => {
-  res.render("index");
+  res.render("index", { host: req.get("host") });
 });
 
 // Create new Url
