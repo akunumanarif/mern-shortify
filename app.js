@@ -3,13 +3,27 @@ const app = express();
 const connect = require("./config/db_connect");
 const bodyParser = require("body-parser");
 const urlDatabase = require("./models/url");
+const expresEjsLayout = require("express-ejs-layouts");
+const expressEjsLayouts = require("express-ejs-layouts");
 
 // Connect to database
 connect();
 
+// View engine
+app.set("View-engine", "ejs");
+app.use(expressEjsLayouts);
+
 // Parsing the data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Create view index
+
+app.get("/", async (req, res) => {
+  res.send("index");
+});
+
+// Create new Url
 
 app.post("/", async (req, res) => {
   const { url, customSlug } = req.body;
@@ -34,10 +48,10 @@ app.post("/", async (req, res) => {
 
 // Get All URL
 
-app.get("/", async (req, res) => {
-  const result = await urlDatabase.find();
-  res.json(result);
-});
+// app.get("/", async (req, res) => {
+//   const result = await urlDatabase.find();
+//   res.json(result);
+// });
 
 // Get Custom URL
 
