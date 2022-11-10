@@ -11,6 +11,7 @@ connect();
 // View engine
 app.set("view engine", "ejs");
 app.use(expressEjsLayouts);
+app.set(express.static("public/"));
 
 // Parsing the data
 app.use(bodyParser.urlencoded({ extended: true }));
