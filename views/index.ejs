@@ -10,9 +10,9 @@
   
     <div class="col-md-8 form mx-auto">
       <h1 class="text-center mb-5">URL SHORTNER</h1>
-      <% if(typeof errors != 'undefined'){%>
+      <% if(typeof (error) !== 'undefined'){%>
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <%= errors[0].msg%>
+        <strong><%= error %></strong>
         <button
           type="button"
           class="close"
@@ -22,16 +22,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%}%> <% if(typeof currentUrl!= 'undefined' && typeof customUrl !=
-      'undefined'){%>
+      <%}%> 
+      <% if(typeof (success) !== 'undefined' ){%>
       <div
         class="alert alert-success alert-dismissible fade show d-flex"
         role="alert"
       >
         This is Your URL:-
-        <p class="text-dark font-weight-bolder">
-          <%= currentUrl + customUrl%>
-        </p>
+        <a class="text-dark font-weight-bolder" href="<%= success %>"><%= success %></a>
+        <!-- <p class="text-dark font-weight-bolder">
+          <%= success %>
+        </p> -->
         <button
           type="button"
           class="close"
@@ -44,10 +45,10 @@
       <%}%>
       <form action="/" method="POST" class="form-check shadow p-4">
         <div class="form-group">
-          <label for="Url">Enter Your Url</label>
+          <label for="url">Enter Your Url</label>
           <input
             type="url"
-            name="mainUrl"
+            name="url"
             class="form-control border-bottom border-left-0 border-top-0 border-right-0 border-secondary"
             placeholder="Enter Url"
           />
@@ -56,11 +57,11 @@
         <div class="form-group">
           <label for="shortUrl">Enter custom url name</label>
           <div class="form-group border-0 border-bottom d-flex">
-            <input type="hidden" name="url" value="<%= url %>" />
-            <p class="mt-2 pl-2"><%= url %></p>
+            
+            <p class="mt-2 pl-2">http://<%= host %></p>
             <input
               type="text"
-              name="customUrl"
+              name="customSlug"
               class="ml-2 form-control border-bottom border-left-0 border-top-0 border-right-0 border-secondary"
               placeholder="Enter short url custom name"
             />
