@@ -4,7 +4,7 @@
   "description": "Custom URL Shortener with MERN Stack",
   "main": "app.js",
   "scripts": {
-    "start": "npm app.js"
+    "start": "node app.js"
   },
   "author": "M Nu'man Arif H",
   "license": "MIT",
