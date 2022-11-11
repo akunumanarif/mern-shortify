@@ -98,7 +98,7 @@ app.get("/:name", async (req, res) => {
   // });
 });
 
-const port = 8000;
+const port = 5000;
 
 app.listen(port, (req, res) => {
   console.log(`Server is running on port ${port}`);

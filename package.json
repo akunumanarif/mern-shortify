@@ -4,10 +4,7 @@
   "description": "Custom URL Shortener with MERN Stack",
   "main": "app.js",
   "scripts": {
-    "start": "npm app.js",
-    "dev": "nodemon app.js",
-    "build": "npm build app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm app.js"
   },
   "author": "M Nu'man Arif H",
   "license": "MIT",
