@@ -11,11 +11,19 @@ connect();
 // View engine
 app.set("view engine", "ejs");
 app.use(expressEjsLayouts);
-app.use(express.static("public/"));
+app.use(express.static(__dirname + "/public/css"));
 
 // Parsing the data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Global variable
+
+// app.use((req, res, next) => {
+//   res.locals.currentUrl =
+//     req.protocol + "://" + req.get("host") + req.originalUrl;
+//   next();
+// });
 
 // Create view index
 
@@ -27,13 +35,23 @@ app.get("/", async (req, res) => {
 
 app.post("/", async (req, res) => {
   const { url, customSlug } = req.body;
+  if (url === "" || customSlug === "") {
+    return res.render("index", {
+      host: req.get("host"),
+      error: "Please fill in the blank",
+    });
+  }
 
   const result = await urlDatabase.find({ customSlug });
 
-  if (result.length === 1) return res.json({ msg: "Custom name existed" });
+  if (result.length === 1)
+    return res.render("index", {
+      host: req.get("host"),
+      error: "Custom name existed",
+    });
   const resultUrl = "http://" + req.get("host") + "/" + customSlug;
 
-  res.send("Test is ok");
+  //res.send("Test is ok");
   const newURL = new urlDatabase({
     url,
     customSlug,
@@ -42,7 +60,9 @@ app.post("/", async (req, res) => {
 
   newURL
     .save()
-    .then((res) => console.log(res))
+    .then((response) =>
+      res.render("index", { host: req.get("host"), success: resultUrl })
+    )
     .catch((err) => console.log(err));
 });
 
@@ -66,10 +86,13 @@ app.get("/:name", async (req, res) => {
       msg: "Custom Url doesn't exist",
     });
   }
-  res.status(200).json({
-    success: true,
-    data: result,
-  });
+
+  res.redirect(result[0].url);
+  // console.log(result[0].url);
+  // res.status(200).json({
+  //   success: true,
+  //   data: result,
+  // });
 });
 
 const port = 8000;
