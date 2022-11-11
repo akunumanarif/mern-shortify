@@ -1,3 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb://localhost:27017/shortify",
+  mongoURI:
+    "mongodb+srv://numanarif:akunumanarif@cluster0.ecx0a.mongodb.net/Shortify?retryWrites=true&w=majority",
 };
