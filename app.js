@@ -14,14 +14,13 @@ connect();
 // View engine
 app.set("view engine", "ejs");
 app.use(expressEjsLayouts);
-app.use(express.static(__dirname + "/public/css"));
 
 // Parsing the data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Global variable
-
+// Global css
+app.use(express.static(__dirname + "/public"));
 // app.use((req, res, next) => {
 //   res.locals.currentUrl =
 //     req.protocol + "://" + req.get("host") + req.originalUrl;
